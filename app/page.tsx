@@ -29,12 +29,9 @@ export default async function Home() {
     throw new Error("Failed to fetch home data");
   }
 
-  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
-
   const needsOnboarding =
-    !isDemoMode &&
-    (!homeData.data.activeWorkoutPlanId ||
-      (trainData.status === 200 && !trainData.data));
+    !homeData.data.activeWorkoutPlanId ||
+    (trainData.status === 200 && !trainData.data);
   if (needsOnboarding) redirect("/onboarding");
 
   const { todayWorkoutDay, workoutStreak, consistencyByDay } = homeData.data;

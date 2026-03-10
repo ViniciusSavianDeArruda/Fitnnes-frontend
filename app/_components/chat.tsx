@@ -122,9 +122,7 @@ export function Chat({ embedded = false, initialMessage }: ChatProps) {
             </span>
             <div className="flex items-center gap-1">
               <div className="size-2 rounded-full bg-online" />
-              <span className="font-heading text-xs text-primary">
-                Online
-              </span>
+              <span className="font-heading text-xs text-primary">Online</span>
             </div>
           </div>
         </div>
@@ -169,15 +167,14 @@ export function Chat({ embedded = false, initialMessage }: ChatProps) {
                     >
                       {part.text}
                     </Streamdown>
-                  ) : null
+                  ) : null,
                 )
               ) : (
                 <p className="font-heading text-sm leading-relaxed text-primary-foreground">
                   {message.parts
                     .filter((part) => part.type === "text")
                     .map(
-                      (part) =>
-                        (part as { type: "text"; text: string }).text
+                      (part) => (part as { type: "text"; text: string }).text,
                     )
                     .join("")}
                 </p>

@@ -28,17 +28,20 @@ export function WorkoutDayCard({
   coverImageUrl,
 }: WorkoutDayCardProps) {
   const durationInMinutes = Math.round(estimatedDurationInSeconds / 60);
+  const fallbackImage = "/workout-plan-banner.png";
+  const imageSrc =
+    coverImageUrl && !coverImageUrl.includes("example.com")
+      ? coverImageUrl
+      : fallbackImage;
 
   return (
-    <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
-      {coverImageUrl && (
-        <Image
-          src={coverImageUrl}
-          alt={name}
-          fill
-          className="pointer-events-none object-cover"
-        />
-      )}
+    <div className="relative flex h-50 w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
+      <Image
+        src={imageSrc}
+        alt={name}
+        fill
+        className="pointer-events-none object-cover"
+      />
       <div className="absolute inset-0 bg-foreground/40" />
       <div className="relative">
         <div className="flex items-center gap-1 rounded-full bg-background/16 px-2.5 py-1.5 backdrop-blur-sm">

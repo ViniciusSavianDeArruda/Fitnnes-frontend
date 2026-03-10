@@ -69,6 +69,11 @@ export default async function WorkoutDayPage({
   } = workoutDayData.data;
 
   const durationInMinutes = Math.round(estimatedDurationInSeconds / 60);
+  const fallbackImage = "/workout-plan-banner.png";
+  const imageSrc =
+    coverImageUrl && !coverImageUrl.includes("example.com")
+      ? coverImageUrl
+      : fallbackImage;
 
   const inProgressSession = sessions.find(
     (s) => s.startedAt && !s.completedAt,
@@ -90,15 +95,13 @@ export default async function WorkoutDayPage({
       </div>
 
       <div className="px-5">
-        <div className="relative flex h-[200px] w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
-          {coverImageUrl && (
-            <Image
-              src={coverImageUrl}
-              alt={name}
-              fill
-              className="pointer-events-none object-cover"
-            />
-          )}
+        <div className="relative flex h-50 w-full flex-col items-start justify-between overflow-hidden rounded-xl p-5">
+          <Image
+            src={imageSrc}
+            alt={name}
+            fill
+            className="pointer-events-none object-cover"
+          />
           <div className="absolute inset-0 bg-foreground/40" />
 
           <div className="relative">
