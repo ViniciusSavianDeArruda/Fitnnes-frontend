@@ -17,9 +17,9 @@ export default async function Home() {
     },
   });
 
-  if (!session.data?.user) redirect("/");
+  if (!session.data?.user) redirect("/auth");
 
-  
+
 
   const today = dayjs();
   const [homeData, trainData] = await Promise.all([
