@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fitnnes-frontend
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/next.js-15-blue)
+![TypeScript](https://img.shields.io/badge/typescript-5-blue)
+![Tailwind CSS](https://img.shields.io/badge/tailwindcss-4-teal)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-First, run the development server:
+## Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Aplicação Web  
+https://app.fitnnesapp.online
+
+API Backend  
+https://api.fitnnesapp.online
+
+Fitnnes-frontend é o webapp do sistema de gestão de treinos Fit.IA, desenvolvido com Next.js 15, TypeScript, Tailwind CSS e shadcn/ui. Este projeto consome a API backend, entrega a interface principal do produto, autenticação, visualização de treinos, estatísticas e integração com dispositivos.
+
+---
+
+## Features
+
+- Google OAuth authentication (BetterAuth)
+- Workout plan and day visualization
+- Exercise tracking
+- Consistency heatmap and streak stats
+- Responsive mobile-first UI
+- Integration with smartwatch
+- Modular UI with shadcn/ui
+- Form validation with Zod
+- API client generation with Orval
+
+---
+
+## Tecnologias Utilizadas
+
+- **Next.js 15**: Framework React para web apps modernos.
+- **TypeScript**: Tipagem estática e segurança.
+- **Tailwind CSS**: Estilização rápida e customizável.
+- **shadcn/ui**: Componentes UI acessíveis e modernos.
+- **React Hook Form + Zod**: Formulários e validação.
+- **Orval**: Geração automática de client API.
+- **dayjs**: Manipulação de datas.
+- **BetterAuth**: Autenticação e gerenciamento de sessão.
+
+---
+
+## Estrutura do Projeto
+
+```
+Fitnnes-frontend/
+├── app/
+│   ├── _lib/           # API client, auth client, fetch mutator
+│   ├── workout-plans/  # Páginas de planos e dias de treino
+│   ├── stats/          # Página de estatísticas
+│   ├── profile/        # Página de perfil
+│   ├── auth/           # Página de login
+│   └── globals.css     # Estilos globais
+├── components/
+│   └── ui/             # Componentes shadcn/ui customizados
+├── public/             # Imagens e assets estáticos
+├── tasks/              # Desafios e tarefas do bootcamp
+├── README.md           # Documentação principal
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Como rodar
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Instale dependências:
+   ```bash
+   pnpm install
+   ```
+2. Configure `.env`:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:8080
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   ```
+3. Rode o servidor:
+   ```bash
+   pnpm dev
+   ```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Autenticação
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O sistema utiliza autenticação baseada em sessão utilizando BetterAuth.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Fluxo:
 
-## Deploy on Vercel
+1. Usuário faz login via Google OAuth
+2. Backend gera sessão
+3. Sessão é armazenada no banco
+4. Frontend valida sessão em cada requisição
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Como contribuir
+
+Contribuições são bem-vindas! Para colaborar:
+
+1. Fork este repositório e crie uma branch para sua feature ou correção.
+2. Siga o padrão de commits [Conventional Commits](https://www.conventionalcommits.org/).
+3. Rode lint antes de abrir um PR:
+   ```bash
+   pnpm lint
+   ```
+4. Abra um Pull Request detalhando sua proposta.
+5. Use issues para sugestões, bugs ou dúvidas.
+
+### Padrões
+- Código limpo, modular e tipado.
+- Uso de componentes shadcn/ui.
+- Validação com Zod.
+- Formulários com React Hook Form.
+
+---
+
+## Roadmap
+
+- [ ] Melhorar cobertura de testes automatizados
+- [ ] Adicionar integração com notificações push
+- [ ] Refatorar responsividade para tablets
+- [ ] Evoluir integração com smartwatch
+- [ ] Criar dashboard de estatísticas avançadas
+- [ ] Adicionar temas customizáveis
+
+---
+
+## Licença
+
+Este projeto está sob licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+---
+
+> Este projeto está em evolução contínua conforme vou estudando, aprendendo novas tecnologias e aprimorando boas práticas de desenvolvimento.
+
+
