@@ -109,6 +109,7 @@ Contribuições são bem-vindas! Para colaborar:
 5. Use issues para sugestões, bugs ou dúvidas.
 
 ### Padrões
+
 - Código limpo, modular e tipado.
 - Uso de componentes shadcn/ui.
 - Validação com Zod.
@@ -134,5 +135,3 @@ Este projeto está sob licença MIT. Veja o arquivo LICENSE para mais detalhes.
 ---
 
 > Este projeto está em evolução contínua conforme vou estudando, aprendendo novas tecnologias e aprimorando boas práticas de desenvolvimento.
-
-

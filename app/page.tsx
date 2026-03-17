@@ -1,14 +1,14 @@
-import { redirect } from "next/navigation";
 import { authClient } from "@/app/_lib/auth-client";
-import { headers } from "next/headers";
-import { getHomeData, getUserTrainData } from "./_lib/api/fetch-generated";
 import dayjs from "dayjs";
+import { Flame } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { Flame } from "lucide-react";
+import { redirect } from "next/navigation";
 import { BottomNav } from "./_components/bottom-nav";
 import { ConsistencyTracker } from "./_components/consistency-tracker";
 import { WorkoutDayCard } from "./_components/workout-day-card";
+import { getHomeData, getUserTrainData } from "./_lib/api/fetch-generated";
 
 export default async function Home() {
   const session = await authClient.getSession({
@@ -18,8 +18,6 @@ export default async function Home() {
   });
 
   if (!session.data?.user) redirect("/auth");
-
-
 
   const today = dayjs();
   const [homeData, trainData] = await Promise.all([
