@@ -40,9 +40,9 @@
 
 ## 🎯 Sobre o Projeto
 
-O FIT.AI é uma aplicação web moderna para gestão inteligente de treinos. Desenvolvida com Next.js 15 App Router, a plataforma integra inteligência artificial para personalizar planos de treino, rastrear progresso e fornecer estatísticas detalhadas sobre consistência e desempenho.
+O FIT.AI é uma aplicação web moderna para gestão inteligente de treinos. Desenvolvida com Next.js 16 (App Router), a plataforma integra inteligência artificial para personalizar planos de treino, rastrear progresso e fornecer estatísticas detalhadas sobre consistência e desempenho.
 
-O projeto consome uma API REST com spec OpenAPI disponível em [`/swagger.json`](https://api.fitnnesapp.online/swagger.json) e utiliza BetterAuth com Google OAuth para autenticação segura baseada em sessão.
+O frontend consome uma API REST cujo OpenAPI spec está disponível em [`/swagger.json`](https://api.fitnnesapp.online/swagger.json). A autenticação usa `better-auth` com Google OAuth e sessões no servidor.
 
 ---
 
@@ -123,35 +123,16 @@ O projeto consome uma API REST com spec OpenAPI disponível em [`/swagger.json`]
 
 ## 🏗️ Arquitetura
 
-### Visão Geral
+### Visão geral
 
-```
-Browser / Mobile
-      │
-      ▼
-┌─────────────────────────────────────┐
-│          Next.js App Router          │
-│                                     │
-│  ┌──────────────┐  ┌──────────────┐ │
-│  │   Server     │  │   Client     │ │
-│  │  Components  │  │  Components  │ │
-│  │              │  │              │ │
-│  │ fetch-gen/   │  │ rc-gen/      │ │
-│  │ index.ts     │  │ index.ts     │ │
-│  └──────┬───────┘  └──────┬───────┘ │
-│         └────────┬─────────┘        │
-└──────────────────┼──────────────────┘
-                   │ customFetch
-                   ▼
-         ┌─────────────────┐
-         │   Backend API   │
-         │  /swagger.json  │
-         └─────────────────┘
-```
+O frontend usa o App Router do Next.js. A arquitetura separa componentes server (Server Components) das partes client, e usa código gerado pelo Orval para chamadas à API.
 
-### Path Aliases
+Fluxo simplificado:
+- Browser → Next.js (Server/Client Components) → Mutator customizado (`app/_lib/fetch.ts`) → Backend API (OpenAPI /swagger.json)
 
-`@/*` é mapeado para a raiz do projeto (`./`):
+### Path aliases
+
+O alias `@/*` aponta para a raiz do projeto. Exemplos de import:
 
 ```ts
 import { Button } from "@/components/ui/button"
@@ -159,13 +140,13 @@ import { authClient } from "@/app/_lib/auth-client"
 import { cn } from "@/lib/utils"
 ```
 
-### Fetch Mutator
+### Mutator de fetch (Orval)
 
-O arquivo `app/_lib/fetch.ts` é o mutator customizado do Orval. Ele:
+O arquivo `app/_lib/fetch.ts` é o mutator usado pelo client gerado pelo Orval. Principais responsabilidades:
 
-1. Concatena `NEXT_PUBLIC_API_URL` com o path do endpoint
-2. Encaminha os cookies da requisição atual (necessário para autenticação em Server Components)
-3. É injetado automaticamente em todas as funções geradas pelo Orval
+- Preencher a URL base (`NEXT_PUBLIC_API_URL`) nos endpoints gerados
+- Encaminhar cookies/headers quando usado em Server Components (via `next/headers`)
+- Ser injetado automaticamente nas funções geradas pelo Orval
 
 ---
 
@@ -571,6 +552,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para 
 
 ---
 
-<div align="center">
-  Feito com ☕ e muito treino
-</div>
+
+> Projeto em evolução — contribuições e feedback são bem-vindos.
+
+
