@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-FIT.AI — a fitness training web app built with Next.js 15 (App Router). The backend API serves an OpenAPI spec at `/swagger.json` and handles authentication via BetterAuth with Google OAuth.
+FIT.AI — a fitness training web app built with Next.js 16 (App Router). The backend API serves an OpenAPI spec at `/swagger.json` and handles authentication via BetterAuth with Google OAuth.
 
 ## Commands
 
