@@ -99,13 +99,18 @@ export function StatsHeatmap({
                   {week.dates.map((date) => {
                     const dateStr = date.format("YYYY-MM-DD");
                     const dayData = consistencyByDay[dateStr];
+                    const dayOfMonth = date.date();
 
                     if (dayData?.workoutDayCompleted) {
                       return (
                         <div
                           key={dateStr}
-                          className="size-5 rounded-md bg-primary"
-                        />
+                          className="flex size-5 items-center justify-center rounded-md bg-primary"
+                        >
+                          <span className="font-heading text-[9px] leading-none text-primary-foreground">
+                            {dayOfMonth}
+                          </span>
+                        </div>
                       );
                     }
 
@@ -113,16 +118,24 @@ export function StatsHeatmap({
                       return (
                         <div
                           key={dateStr}
-                          className="size-5 rounded-md bg-primary/20"
-                        />
+                          className="flex size-5 items-center justify-center rounded-md bg-primary/20"
+                        >
+                          <span className="font-heading text-[9px] leading-none text-primary">
+                            {dayOfMonth}
+                          </span>
+                        </div>
                       );
                     }
 
                     return (
                       <div
                         key={dateStr}
-                        className="size-5 rounded-md border border-border"
-                      />
+                        className="flex size-5 items-center justify-center rounded-md border border-border"
+                      >
+                        <span className="font-heading text-[9px] leading-none text-muted-foreground">
+                          {dayOfMonth}
+                        </span>
+                      </div>
                     );
                   })}
                 </div>
