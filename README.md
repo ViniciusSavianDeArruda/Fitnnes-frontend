@@ -7,9 +7,8 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-teal?logo=tailwindcss)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
-[Demo](https://app.fitnnesapp.online) · [API](https://api.fitnnesapp.online) · [Reportar Bug](https://github.com/issues) · [Sugerir Feature](https://github.com/issues)
+[Demo](https://app.fitnnesapp.online) · [API](https://api.fitnnesapp.online) · [Reportar Bug](https://github.com/ViniciusSavianDeArruda/Fitnnes-frontend/issues) · [Sugerir Feature](https://github.com/ViniciusSavianDeArruda/Fitnnes-frontend/issues)
 
 </div>
 
@@ -34,7 +33,6 @@
 - [Deploy](#-deploy)
 - [Roadmap](#-roadmap)
 - [Como Contribuir](#-como-contribuir)
-- [Licença](#-licença)
 
 ---
 
@@ -49,12 +47,13 @@ O frontend consome uma API REST cujo OpenAPI spec está disponível em [`/swagge
 ## ✨ Features
 
 - **Autenticação** — Login via Google OAuth com sessões gerenciadas pelo BetterAuth
-- **Planos de Treino** — Criação, visualização e gerenciamento de planos e dias de treino
+- **Onboarding** — Fluxo inicial guiado para novos usuários
+- **Planos de Treino** — Criação, visualização e execução de planos e dias de treino
 - **Rastreamento de Exercícios** — Acompanhamento de séries, repetições e carga
 - **Estatísticas** — Heatmap de consistência, streaks e métricas de desempenho
-- **Integração com IA** — Sugestões e análises geradas via Vercel AI SDK
+- **Chat com IA** — Assistente conversacional com respostas em streaming via Vercel AI SDK
 - **Integração com Smartwatch** — Sincronização com dispositivos vestíveis
-- **UI Responsiva** — Design mobile-first com suporte a todos os tamanhos de tela
+- **UI Responsiva** — Design mobile-first com navegação inferior (bottom nav)
 - **Validação de Formulários** — Validação com Zod + React Hook Form
 - **Client API Gerado** — Tipagem end-to-end via Orval + OpenAPI
 
@@ -152,7 +151,7 @@ O arquivo `app/_lib/fetch.ts` é o mutator usado pelo client gerado pelo Orval. 
 
 ## 📦 Pré-requisitos
 
-- **Node.js** 18 ou superior
+- **Node.js** 20.9 ou superior (requisito do Next.js 16)
 - **pnpm** — `npm install -g pnpm`
 - Backend FIT.AI rodando localmente ou apontando para `https://api.fitnnesapp.online`
 
@@ -162,8 +161,8 @@ O arquivo `app/_lib/fetch.ts` é o mutator usado pelo client gerado pelo Orval. 
 
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/seu-usuario/fitnnes-frontend.git
-cd fitnnes-frontend
+git clone https://github.com/ViniciusSavianDeArruda/Fitnnes-frontend.git
+cd Fitnnes-frontend
 
 # 2. Instalar dependências
 pnpm install
@@ -189,8 +188,8 @@ Acesse `http://localhost:3000` no navegador.
 Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 
 ```env
-# URL do backend (API REST)
-NEXT_PUBLIC_API_URL=http://localhost:8080
+# URL do backend (API REST) — precisa bater com a porta configurada no backend (padrão: 8081)
+NEXT_PUBLIC_API_URL=http://localhost:8081
 
 # URL do frontend (usado para callbacks de OAuth e afins)
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
@@ -225,42 +224,45 @@ npx shadcn@latest add <component>   # Instala um novo componente shadcn/ui
 ## 📁 Estrutura de Pastas
 
 ```
-fitnnes-frontend/
+Fitnnes-frontend/
 │
-├── app/                          # Next.js App Router
-│   ├── _lib/                     # Código interno da aplicação
+├── app/                                    # Next.js App Router
+│   ├── _components/                        # Componentes globais (bottom nav, chat com IA, heatmap de consistência)
+│   ├── _lib/                               # Código interno da aplicação
 │   │   ├── api/
-│   │   │   ├── fetch-generated/  # Client gerado pelo Orval (Server Components)
+│   │   │   ├── fetch-generated/            # Client gerado pelo Orval (Server Components)
 │   │   │   │   └── index.ts
-│   │   │   └── rc-generated/     # Hooks TanStack Query (Client Components, desabilitado)
+│   │   │   └── rc-generated/                # Hooks TanStack Query (Client Components, desabilitado)
 │   │   │       └── index.ts
-│   │   ├── auth-client.ts        # Instância do BetterAuth
-│   │   └── fetch.ts              # Mutator customizado (URL + cookies)
+│   │   ├── auth-client.ts                  # Instância do BetterAuth
+│   │   └── fetch.ts                        # Mutator customizado (URL + cookies)
 │   │
-│   ├── auth/                     # Página de autenticação (/auth)
-│   ├── workout-plans/            # Planos de treino (/workout-plans)
-│   ├── stats/                    # Estatísticas (/stats)
-│   ├── profile/                  # Perfil do usuário (/profile)
+│   ├── auth/                               # Login (/auth)
+│   ├── onboarding/                         # Fluxo inicial de onboarding (/onboarding)
+│   ├── workout-plans/                      # Planos de treino (/workout-plans)
+│   │   └── [id]/days/[dayId]/              # Execução de um treino específico
+│   ├── stats/                              # Estatísticas e heatmap de consistência (/stats)
+│   ├── profile/                            # Perfil do usuário (/profile)
 │   │
-│   ├── layout.tsx                # Layout raiz da aplicação
-│   ├── page.tsx                  # Página inicial (/)
-│   └── globals.css               # Estilos globais e variáveis de tema (oklch)
+│   ├── layout.tsx                          # Layout raiz da aplicação
+│   ├── page.tsx                            # Página inicial (/)
+│   └── globals.css                         # Estilos globais e variáveis de tema (oklch)
 │
 ├── components/
-│   └── ui/                       # Componentes shadcn/ui (estilo new-york)
+│   └── ui/                                 # Componentes shadcn/ui (estilo new-york)
 │
 ├── lib/
-│   └── utils.ts                  # Utilitário cn() (clsx + tailwind-merge)
+│   └── utils.ts                            # Utilitário cn() (clsx + tailwind-merge)
 │
-├── public/                       # Assets estáticos (imagens, ícones, fontes)
+├── public/                                 # Assets estáticos (imagens, ícones, banners)
 │
-├── .env.example                  # Template de variáveis de ambiente
-├── eslint.config.mjs             # Configuração ESLint
-├── next.config.ts                # Configuração Next.js
-├── orval.config.ts               # Configuração do Orval
-├── postcss.config.mjs            # Configuração PostCSS
-├── components.json               # Configuração shadcn/ui
-├── tsconfig.json                 # Configuração TypeScript
+├── .env.example                            # Template de variáveis de ambiente
+├── eslint.config.mjs                       # Configuração ESLint
+├── next.config.ts                          # Configuração Next.js
+├── orval.config.ts                         # Configuração do Orval
+├── postcss.config.mjs                      # Configuração PostCSS
+├── components.json                         # Configuração shadcn/ui
+├── tsconfig.json                           # Configuração TypeScript
 └── package.json
 ```
 
@@ -545,13 +547,6 @@ Contribuições são bem-vindas! Siga os passos abaixo:
 5. Abra um **Pull Request** descrevendo as mudanças e o motivo.
 
 ---
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
-
----
-
 
 > Projeto em evolução — contribuições e feedback são bem-vindos.
 
