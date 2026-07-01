@@ -24,7 +24,7 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
       : null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-6 rounded-t-[20px] border border-border bg-background px-6 py-4">
+    <nav className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center gap-6 rounded-t-[20px] border border-border bg-background px-6 py-4 lg:inset-x-auto lg:left-1/2 lg:w-full lg:max-w-md lg:-translate-x-1/2">
       <Link href="/" className="p-3">
         <House
           className={cn(

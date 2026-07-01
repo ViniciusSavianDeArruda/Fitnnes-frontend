@@ -39,13 +39,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${interTight.variable} ${anton.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${interTight.variable} ${anton.variable} bg-muted antialiased`}
       >
         <NuqsAdapter>
-          {children}
-          <Suspense>
-            <Chat />
-          </Suspense>
+          <div className="relative mx-auto flex w-full max-w-md flex-col bg-background lg:min-h-svh lg:border-x lg:border-border lg:shadow-2xl">
+            {children}
+            <Suspense>
+              <Chat />
+            </Suspense>
+          </div>
         </NuqsAdapter>
       </body>
     </html>
